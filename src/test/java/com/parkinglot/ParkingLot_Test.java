@@ -82,7 +82,7 @@ public class ParkingLot_Test {
         Car car = new Car();
         List<ParkingTicket> parkingTicket = new LinkedList<>();
         //when
-        for(int count = 0; count <= 10; count++) {
+        for (int count = 0; count <= 10; count++) {
             parkingTicket.add(parkingLot.park(car));
         }
         ParkingTicket parkingTicket_whenFull = parkingLot.park(car);
