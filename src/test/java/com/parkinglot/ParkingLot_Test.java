@@ -28,6 +28,23 @@ public class ParkingLot_Test {
         Car bobCar = parkingLot.fetchCar(parkingTicket);
 
         //then
-        assertEquals(car,bobCar);
+        assertEquals(car, bobCar);
+    }
+
+    @Test
+    public void should_return_correct_car_when_fetch_car_two_times_given_parking_lot_has_two_parked_cars() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        Car davidCar = new Car();
+        Car randomCar = new Car();
+        //when
+        ParkingTicket davidParkingTicket = parkingLot.park(davidCar);
+        ParkingTicket randomParkingTicket = parkingLot.park(randomCar);
+        Car actualDavidCar = parkingLot.fetchCar(davidParkingTicket);
+        Car actualRandomCar = parkingLot.fetchCar(randomParkingTicket);
+
+        //then
+        assertEquals(davidCar, actualDavidCar);
+        assertEquals(randomCar, actualRandomCar);
     }
 }
