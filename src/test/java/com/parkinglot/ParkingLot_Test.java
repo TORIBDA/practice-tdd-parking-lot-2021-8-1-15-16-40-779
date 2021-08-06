@@ -2,6 +2,9 @@ package com.parkinglot;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLot_Test {
@@ -70,5 +73,21 @@ public class ParkingLot_Test {
 
         //then
         assertNull(actualCar);
+    }
+
+    @Test
+    public void should_return_nothing_when_fetch_car_given_parking_lot_is_full() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+        //when
+        for(int count = 0; count <= 10; count++) {
+            parkingTicket.add(parkingLot.park(car));
+        }
+        ParkingTicket parkingTicket_whenFull = parkingLot.park(car);
+
+        //then
+        assertNull(parkingTicket_whenFull);
     }
 }
