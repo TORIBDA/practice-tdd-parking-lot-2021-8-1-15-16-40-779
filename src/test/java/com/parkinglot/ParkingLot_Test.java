@@ -8,7 +8,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLot_Test {
-
+    //<editor-fold desc="Parking Lot Region">
     @Test
     public void should_return_ticket_when_park_car_given_parking_lot_has_open_spaces() throws Exception {
         //given
@@ -90,4 +90,17 @@ public class ParkingLot_Test {
         //then
         assertEquals("No available position.", exception.getMessage());
     }
+    //</editor-fold>
+    //<editor-fold desc="Standard Parking Boy">
+    @Test
+    public void should_return_ticket_when_standard_parking_boy_park_car_given_parking_lot_has_open_spaces() throws Exception {
+        //given
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        Car car = new Car();
+        //when
+        ParkingTicket parkingTicket = standardParkingBoy.getParkingLot().park(car);
+        //then
+        assertNotNull(parkingTicket);
+    }
+    //</editor-fold>
 }
