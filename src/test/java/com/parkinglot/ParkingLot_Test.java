@@ -98,7 +98,7 @@ public class ParkingLot_Test {
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
         Car car = new Car();
         //when
-        ParkingTicket parkingTicket = standardParkingBoy.getParkingLot().park(car);
+        ParkingTicket parkingTicket = standardParkingBoy.park(car);
         //then
         assertNotNull(parkingTicket);
     }
@@ -109,8 +109,8 @@ public class ParkingLot_Test {
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
         Car car = new Car();
         //when
-        ParkingTicket parkingTicket = standardParkingBoy.getParkingLot().park(car);
-        Car actualCar = standardParkingBoy.getParkingLot().fetchCar(parkingTicket);
+        ParkingTicket parkingTicket = standardParkingBoy.park(car);
+        Car actualCar = standardParkingBoy.fetchCar(parkingTicket);
         //then
         assertEquals(car, actualCar);
     }
