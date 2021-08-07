@@ -20,8 +20,8 @@ public class ParkingLotManager extends StandardParkingBoy {
         this.parkingBoys = parkingBoys;
     }
 
-    public ParkingLotManager(ParkingLot parkingLots, List<ParkingBoy> parkingBoys) {
-        super(parkingLots);
+    public ParkingLotManager(ParkingLot parkingLot, List<ParkingBoy> parkingBoys) {
+        super(parkingLot);
         this.parkingBoys = parkingBoys;
     }
 
