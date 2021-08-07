@@ -3,7 +3,8 @@ package com.parkinglot;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ParkingLotManager extends StandardParkingBoy{
+public class ParkingLotManager extends StandardParkingBoy {
+
     List<ParkingBoy> parkingBoys = new LinkedList<>();
 
     public ParkingLotManager(ParkingLot parkingLot) {
@@ -38,5 +39,13 @@ public class ParkingLotManager extends StandardParkingBoy{
                 .findFirst()
                 .orElse(null)
                 .fetchCar(parkingTicket);
+    }
+
+    public void addParkingBoy(ParkingBoy parkingBoy) {
+        parkingBoys.add(parkingBoy);
+    }
+
+    public List<ParkingBoy> getParkingBoys() {
+        return parkingBoys;
     }
 }

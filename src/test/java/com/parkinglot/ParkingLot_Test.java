@@ -285,6 +285,7 @@ public class ParkingLot_Test {
         assertEquals(7, parkingLots.get(1).getCurrentParkedCarsCount());
         assertTrue(parkingLots.get(0).getCurrentParkedCarsCount() > parkingLots.get(1).getCurrentParkedCarsCount());
     }
+
     //</editor-fold>
     //<editor-fold desc="Super Smart Parking Boy">
     @Test
@@ -391,8 +392,26 @@ public class ParkingLot_Test {
         assertEquals(9, parkingLots.get(1).getCurrentParkedCarsCount());
         assertTrue(parkingLots.get(0).getCurrentParkedCarsCount() < parkingLots.get(1).getCurrentParkedCarsCount());
     }
+
     //</editor-fold>
     //<editor-fold desc="Parking Lot Manager">
+    @Test
+    public void should_add_parking_boy_when_parking_lot_manager_add_parking_boy_given_parking_boy_existing() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        StandardParkingBoy expectedParkingBoy = new StandardParkingBoy(parkingLot);
+        ParkingLotManager parkingLotManager = new ParkingLotManager(new ParkingLot());
+        //when
+        parkingLotManager.addParkingBoy(expectedParkingBoy);
+        ParkingBoy actualParkingBoyAdded = parkingLotManager.getParkingBoys()
+                .stream()
+                .filter(parkingBoy -> parkingBoy.equals(expectedParkingBoy))
+                .findFirst()
+                .get();
+        //then
+        assertNotNull(actualParkingBoyAdded);
+    }
+
     @Test
     public void should_park_cars_to_the_parking_lot_by_parking_boy_when_parking_manager_asked_parking_boy_to_park_car_given_parking_lot_has_available_positions() throws Exception {
         //given
