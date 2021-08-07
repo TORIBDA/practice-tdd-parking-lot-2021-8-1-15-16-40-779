@@ -39,4 +39,8 @@ public class ParkingLot {
     public boolean isParkingLotFull() {
         return parkedPosition.size() >= PARKING_LOT_CAPACITY;
     }
+
+    public int getCurrentParkedCarsCount() {
+        return parkedPosition.size();
+    }
 }

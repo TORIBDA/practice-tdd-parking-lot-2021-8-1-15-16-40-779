@@ -178,4 +178,24 @@ public class ParkingLot_Test {
         assertEquals("No available position.", exception.getMessage());
     }
     //</editor-fold>
+    //<editor-fold desc="Smart Parking Boy">
+    @Test
+    public void should_park_cars_to_the_parking_lot_when_smart_parking_boy_park_car_given_parking_lot_has_more_empty_position() throws Exception {
+        //given
+        List<ParkingLot> parkingLots = new LinkedList<>();
+        parkingLots.add(new ParkingLot());
+        parkingLots.add(new ParkingLot());
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+        //when
+        for (int count = 0; count < 15; count++) {
+            parkingTicket.add(smartParkingBoy.park(car));
+        }
+        //then
+        assertEquals(8, parkingLots.get(0).getCurrentParkedCarsCount());
+        assertEquals(7, parkingLots.get(1).getCurrentParkedCarsCount());
+        assertTrue(parkingLots.get(0).getCurrentParkedCarsCount() > parkingLots.get(1).getCurrentParkedCarsCount());
+    }
+    //</editor-fold>
 }
