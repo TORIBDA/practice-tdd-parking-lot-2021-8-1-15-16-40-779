@@ -36,7 +36,7 @@ public class ParkingLot {
         parkedPosition.remove(parkingTicket);
     }
 
-    private boolean isParkingLotFull() {
+    public boolean isParkingLotFull() {
         return parkedPosition.size() >= PARKING_LOT_CAPACITY;
     }
 }
