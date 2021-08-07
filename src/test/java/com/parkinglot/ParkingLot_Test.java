@@ -392,4 +392,31 @@ public class ParkingLot_Test {
         assertTrue(parkingLots.get(0).getCurrentParkedCarsCount() < parkingLots.get(1).getCurrentParkedCarsCount());
     }
     //</editor-fold>
+    //<editor-fold desc="Parking Lot Manager">
+    @Test
+    public void should_park_cars_to_the_parking_lot_by_parking_boy_when_parking_manager_asked_parking_boy_to_park_car_given_parking_lot_has_available_positions() throws Exception {
+        //given
+        Car car = new Car();
+
+        List<ParkingLot> parkingLots = new LinkedList<>();
+        parkingLots.add(new ParkingLot(10));
+        parkingLots.add(new ParkingLot(100));
+
+        SuperSmartParkingBoy standardParkingBoy = new SuperSmartParkingBoy(parkingLots);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        StandardParkingBoy superSmartParkingBoy = new StandardParkingBoy(parkingLots);
+
+        List<ParkingBoy> parkingBoys = new LinkedList<>();
+        parkingBoys.add(superSmartParkingBoy);
+        parkingBoys.add(smartParkingBoy);
+        parkingBoys.add(standardParkingBoy);
+
+        ParkingLotManager parkingLotManager = new ParkingLotManager(new ParkingLot(), parkingBoys);
+        //when
+        ParkingTicket parkingTicket = parkingLotManager.askParkingBoyToPark(smartParkingBoy, car);
+
+        //then
+        assertNotNull(parkingTicket);
+    }
+    //</editor-fold>
 }
