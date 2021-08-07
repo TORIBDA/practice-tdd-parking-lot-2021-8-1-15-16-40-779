@@ -19,7 +19,8 @@ public class SuperSmartParkingBoy extends ParkingBoy {
         return getParkingLots().stream()
                 .filter(parkingLot -> !parkingLot.isParkingLotFull())
                 .max(Comparator.comparing(this::computeAvailablePosition))
-                .orElseThrow(NoAvailablePositionException::new).park(car);
+                .orElseThrow(NoAvailablePositionException::new)
+                .park(car);
     }
 
     private float computeAvailablePosition(ParkingLot parkingLot) {
