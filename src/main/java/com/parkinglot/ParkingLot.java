@@ -1,6 +1,8 @@
 package com.parkinglot;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class ParkingLot {
@@ -8,8 +10,8 @@ public class ParkingLot {
     private final int PARKING_LOT_CAPACITY = 10;
 
     public ParkingTicket park(Car car) {
-        if (parkedPosition.size() >= PARKING_LOT_CAPACITY) {
-            return null;
+        if (isParkingLotFull()) {
+            throw new NoAvailablePositionException();
         } else {
             ParkingTicket parkingTicket = new ParkingTicket();
             parkedPosition.putIfAbsent(parkingTicket, car);
@@ -34,15 +36,7 @@ public class ParkingLot {
         parkedPosition.remove(parkingTicket);
     }
 
-    public static void main(String[] args) {
-        try{
-            ParkingLot parkingLot = new ParkingLot();
-            //when
-            ParkingTicket wrongParkingTicket = new ParkingTicket();
-            Car actualCar = parkingLot.fetchCar(wrongParkingTicket);
-        } catch (UnrecognizedParkingTicketException exc)
-        {
-            System.out.println(exc.getMessage());
-        }
+    private boolean isParkingLotFull() {
+        return parkedPosition.size() >= PARKING_LOT_CAPACITY;
     }
 }

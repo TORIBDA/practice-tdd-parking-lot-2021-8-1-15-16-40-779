@@ -77,18 +77,17 @@ public class ParkingLot_Test {
     }
 
     @Test
-    public void should_return_nothing_when_fetch_car_given_parking_lot_is_full() throws Exception {
+    public void should_return_nothing_and_display_error_message_when_fetch_car_given_parking_lot_is_full() throws Exception {
         //given
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
         List<ParkingTicket> parkingTicket = new LinkedList<>();
         //when
-        for (int count = 0; count <= 10; count++) {
+        for (int count = 0; count < 10; count++) {
             parkingTicket.add(parkingLot.park(car));
         }
-        ParkingTicket parkingTicket_whenFull = parkingLot.park(car);
-
+        Exception exception = assertThrows(NoAvailablePositionException.class, () -> parkingLot.park(car));
         //then
-        assertNull(parkingTicket_whenFull);
+        assertEquals("No available position.", exception.getMessage());
     }
 }
