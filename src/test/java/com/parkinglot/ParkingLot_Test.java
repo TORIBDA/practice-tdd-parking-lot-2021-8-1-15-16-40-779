@@ -102,5 +102,17 @@ public class ParkingLot_Test {
         //then
         assertNotNull(parkingTicket);
     }
+
+    @Test
+    public void should_return_car_when_standard_parking_boy_fetch_car_given_parking_lot_has_parked_car() throws Exception {
+        //given
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        Car car = new Car();
+        //when
+        ParkingTicket parkingTicket = standardParkingBoy.getParkingLot().park(car);
+        Car actualCar = standardParkingBoy.getParkingLot().fetchCar(parkingTicket);
+        //then
+        assertEquals(car, actualCar);
+    }
     //</editor-fold>
 }
