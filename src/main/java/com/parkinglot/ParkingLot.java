@@ -20,7 +20,7 @@ public class ParkingLot {
     }
 
     public Car fetchCar(ParkingTicket parkingTicket) {
-        if(isUnrecognizedParkingTicket(parkingTicket)) {
+        if (isUnrecognizedParkingTicket(parkingTicket)) {
             throw new UnrecognizedParkingTicketException();
         }
         Car fetchedCar = parkedPosition.get(parkingTicket);
