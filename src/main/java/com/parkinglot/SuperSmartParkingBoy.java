@@ -18,14 +18,8 @@ public class SuperSmartParkingBoy extends ParkingBoy {
     public ParkingTicket park(Car car) {
         return getParkingLots().stream()
                 .filter(parkingLot -> !parkingLot.isParkingLotFull())
-                .max(Comparator.comparing(this::computeAvailablePosition))
+                .max(Comparator.comparing(ParkingLot::computeAvailablePosition))
                 .orElseThrow(NoAvailablePositionException::new)
                 .park(car);
-    }
-
-    private float computeAvailablePosition(ParkingLot parkingLot) {
-        float capacity = parkingLot.getPARKING_LOT_CAPACITY();
-        float currentCount = parkingLot.getCurrentParkedCarsCount();
-        return (capacity - currentCount) / capacity;
     }
 }

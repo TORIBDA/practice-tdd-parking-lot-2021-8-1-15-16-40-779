@@ -52,7 +52,7 @@ public class ParkingLot {
         return parkedPosition.size();
     }
 
-    public int getPARKING_LOT_CAPACITY() {
-        return PARKING_LOT_CAPACITY;
+    public float computeAvailablePosition() {
+        return (float)(PARKING_LOT_CAPACITY - getCurrentParkedCarsCount()) / PARKING_LOT_CAPACITY;
     }
 }
