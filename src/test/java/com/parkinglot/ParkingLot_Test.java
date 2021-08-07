@@ -288,6 +288,92 @@ public class ParkingLot_Test {
     //</editor-fold>
     //<editor-fold desc="Super Smart Parking Boy">
     @Test
+    public void should_return_ticket_when_super_smart_parking_boy_park_car_given_parking_lot_has_open_spaces() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot);
+        Car car = new Car();
+        //when
+        ParkingTicket parkingTicket = superSmartParkingBoy.park(car);
+        //then
+        assertNotNull(parkingTicket);
+    }
+
+    @Test
+    public void should_return_car_when_super_smart_parking_boy_fetch_car_given_parking_lot_has_parked_car() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot);
+        Car car = new Car();
+        //when
+        ParkingTicket parkingTicket = superSmartParkingBoy.park(car);
+        Car actualCar = superSmartParkingBoy.fetchCar(parkingTicket);
+        //then
+        assertEquals(car, actualCar);
+    }
+
+    @Test
+    public void should_return_correct_car_when_super_smart_parking_boy_fetch_car_two_times_given_parking_lot_has_two_parked_cars() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot);
+        Car davidCar = new Car();
+        Car randomCar = new Car();
+        //when
+        ParkingTicket davidParkingTicket = superSmartParkingBoy.park(davidCar);
+        ParkingTicket randomParkingTicket = superSmartParkingBoy.park(randomCar);
+        Car actualDavidCar = superSmartParkingBoy.fetchCar(davidParkingTicket);
+        Car actualRandomCar = superSmartParkingBoy.fetchCar(randomParkingTicket);
+        //then
+        assertEquals(davidCar, actualDavidCar);
+        assertEquals(randomCar, actualRandomCar);
+    }
+
+    @Test
+    public void should_not_return_any_car_and_display_error_message_when_super_smart_parking_boy_fetch_car_given_parking_ticket_is_wrong() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot);
+        //when
+        ParkingTicket wrongParkingTicket = new ParkingTicket();
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> superSmartParkingBoy.fetchCar(wrongParkingTicket));
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_not_return_any_car_and_display_error_message_when_super_smart_parking_boy_fetch_car_given_parking_ticket_is_used_already() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLot);
+        Car car = new Car();
+        //when
+        ParkingTicket parkingTicket = superSmartParkingBoy.park(car);
+        superSmartParkingBoy.fetchCar(parkingTicket);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> superSmartParkingBoy.fetchCar(parkingTicket));
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_be_able_to_park_more_than_10_when_super_smart_parking_boy_park_more_than_10_cars_but_not_higher_than_20_given_2_parking_lot() throws Exception {
+        //given
+        List<ParkingLot> parkingLots = new LinkedList<>();
+        parkingLots.add(new ParkingLot());
+        parkingLots.add(new ParkingLot());
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLots);
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+        //when
+        for (int count = 0; count < 20; count++) {
+            parkingTicket.add(superSmartParkingBoy.park(car));
+        }
+        Exception exception = assertThrows(NoAvailablePositionException.class, () -> superSmartParkingBoy.park(car));
+        //then
+        assertEquals("No available position.", exception.getMessage());
+    }
+
+    @Test
     public void should_park_cars_to_the_parking_lot_when_super_smart_parking_boy_park_car_given_parking_lot_has_more_available_positions() throws Exception {
         //given
         List<ParkingLot> parkingLots = new LinkedList<>();
