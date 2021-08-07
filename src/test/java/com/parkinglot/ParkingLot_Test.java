@@ -63,17 +63,17 @@ public class ParkingLot_Test {
     }
 
     @Test
-    public void should_not_return_any_car_when_fetch_car_given_parking_ticket_is_used_already() throws Exception {
+    public void should_not_return_any_car_and_display_error_message_when_fetch_car_given_parking_ticket_is_used_already() throws Exception {
         //given
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
         //when
         ParkingTicket parkingTicket = parkingLot.park(car);
-        Car actualCar = parkingLot.fetchCar(parkingTicket);
-        actualCar = parkingLot.fetchCar(parkingTicket);
+        parkingLot.fetchCar(parkingTicket);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingLot.fetchCar(parkingTicket));
 
         //then
-        assertNull(actualCar);
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
     @Test
