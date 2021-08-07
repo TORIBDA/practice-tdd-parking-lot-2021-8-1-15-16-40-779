@@ -114,5 +114,62 @@ public class ParkingLot_Test {
         //then
         assertEquals(car, actualCar);
     }
+
+    @Test
+    public void should_return_correct_car_when_standard_parking_boy_fetch_car_two_times_given_parking_lot_has_two_parked_cars() throws Exception {
+        //given
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        Car davidCar = new Car();
+        Car randomCar = new Car();
+        //when
+        ParkingTicket davidParkingTicket = standardParkingBoy.park(davidCar);
+        ParkingTicket randomParkingTicket = standardParkingBoy.park(randomCar);
+        Car actualDavidCar = standardParkingBoy.fetchCar(davidParkingTicket);
+        Car actualRandomCar = standardParkingBoy.fetchCar(randomParkingTicket);
+
+        //then
+        assertEquals(davidCar, actualDavidCar);
+        assertEquals(randomCar, actualRandomCar);
+    }
+
+    @Test
+    public void should_not_return_any_car_and_display_error_message_when_standard_parking_boy_fetch_car_given_parking_ticket_is_wrong() throws Exception {
+        //given
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        //when
+        ParkingTicket wrongParkingTicket = new ParkingTicket();
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> standardParkingBoy.fetchCar(wrongParkingTicket));
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_not_return_any_car_and_display_error_message_when_standard_parking_boy_fetch_car_given_parking_ticket_is_used_already() throws Exception {
+        //given
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        Car car = new Car();
+        //when
+        ParkingTicket parkingTicket = standardParkingBoy.park(car);
+        standardParkingBoy.fetchCar(parkingTicket);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> standardParkingBoy.fetchCar(parkingTicket));
+
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_return_nothing_and_display_error_message_when_standard_parking_boy_fetch_car_given_parking_lot_is_full() throws Exception {
+        //given
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+        //when
+        for (int count = 0; count < 10; count++) {
+            parkingTicket.add(standardParkingBoy.park(car));
+        }
+        Exception exception = assertThrows(NoAvailablePositionException.class, () -> standardParkingBoy.park(car));
+        //then
+        assertEquals("No available position.", exception.getMessage());
+    }
     //</editor-fold>
 }
