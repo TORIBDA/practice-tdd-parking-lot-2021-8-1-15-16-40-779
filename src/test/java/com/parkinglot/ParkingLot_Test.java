@@ -418,5 +418,33 @@ public class ParkingLot_Test {
         //then
         assertNotNull(parkingTicket);
     }
+
+    @Test
+    public void should_fetch_cars_by_parking_boy_when_parking_manager_asked_parking_boy_to_fetch_car_given_parking_boy_parking_lot_has_the_car() throws Exception {
+        //given
+        Car car = new Car();
+
+        List<ParkingLot> parkingLots = new LinkedList<>();
+        parkingLots.add(new ParkingLot(10));
+        parkingLots.add(new ParkingLot(100));
+
+        SuperSmartParkingBoy standardParkingBoy = new SuperSmartParkingBoy(parkingLots);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        StandardParkingBoy superSmartParkingBoy = new StandardParkingBoy(parkingLots);
+
+        List<ParkingBoy> parkingBoys = new LinkedList<>();
+        parkingBoys.add(superSmartParkingBoy);
+        parkingBoys.add(smartParkingBoy);
+        parkingBoys.add(standardParkingBoy);
+
+        ParkingLotManager parkingLotManager = new ParkingLotManager(new ParkingLot(), parkingBoys);
+        //when
+        ParkingTicket parkingTicket = parkingLotManager.askParkingBoyToPark(smartParkingBoy, car);
+        Car actualCar = parkingLotManager.askParkingBoyToFetchCar(smartParkingBoy, parkingTicket);
+
+        //then
+        assertNotNull(parkingTicket);
+        assertEquals(car, actualCar);
+    }
     //</editor-fold>
 }

@@ -31,4 +31,12 @@ public class ParkingLotManager extends StandardParkingBoy{
                 .orElse(null)
                 .park(car);
     }
+
+    public Car askParkingBoyToFetchCar(ParkingBoy parkingBoy, ParkingTicket parkingTicket) {
+        return parkingBoys.stream()
+                .filter(parkingBoyValue -> parkingBoyValue.equals(parkingBoy))
+                .findFirst()
+                .orElse(null)
+                .fetchCar(parkingTicket);
+    }
 }
