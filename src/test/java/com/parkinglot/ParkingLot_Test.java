@@ -551,5 +551,55 @@ public class ParkingLot_Test {
         assertNotNull(parkingTicket);
         assertEquals(car, actualCar);
     }
+
+    @Test
+    public void should_not_return_any_car_and_display_error_message_when_parking_manager_asked_parking_boy_fetch_car_given_parking_ticket_is_wrong() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot);
+        ParkingLotManager parkingLotManager = new ParkingLotManager(new ParkingLot());
+        parkingLotManager.addParkingBoy(standardParkingBoy);
+        //when
+        ParkingTicket wrongParkingTicket = new ParkingTicket();
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingLotManager.askParkingBoyToFetchCar(standardParkingBoy, wrongParkingTicket));
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_not_return_any_car_and_display_error_message_when_parking_lot_manager_asked_parking_boy_fetch_car_given_parking_ticket_is_used_already() throws Exception {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot);
+        ParkingLotManager parkingLotManager = new ParkingLotManager(new ParkingLot());
+        parkingLotManager.addParkingBoy(standardParkingBoy);
+        Car car = new Car();
+        //when
+        ParkingTicket parkingTicket = parkingLotManager.askParkingBoyToPark(standardParkingBoy, car);
+        parkingLotManager.askParkingBoyToFetchCar(standardParkingBoy, parkingTicket);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingLotManager.askParkingBoyToFetchCar(standardParkingBoy, parkingTicket));
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_be_able_to_park_more_than_10_when_parking_lot_manager_ask_parking_boy_park_more_than_10_cars_but_not_higher_than_20_given_2_parking_lot() throws Exception {
+        //given
+        List<ParkingLot> parkingLots = new LinkedList<>();
+        parkingLots.add(new ParkingLot());
+        parkingLots.add(new ParkingLot());
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLots);
+        ParkingLotManager parkingLotManager = new ParkingLotManager(new ParkingLot());
+        parkingLotManager.addParkingBoy(standardParkingBoy);
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+        //when
+        for (int count = 0; count < 20; count++) {
+            parkingTicket.add(parkingLotManager.askParkingBoyToPark(standardParkingBoy, car));
+        }
+        Exception exception = assertThrows(NoAvailablePositionException.class, () -> parkingLotManager.askParkingBoyToPark(standardParkingBoy, car));
+        //then
+        assertEquals("No available position.", exception.getMessage());
+    }
     //</editor-fold>
 }
