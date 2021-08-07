@@ -17,7 +17,7 @@ public class StandardParkingBoy {
     public ParkingTicket park(Car car){
         return parkingLots.stream().filter(parkingLot -> !parkingLot.isParkingLotFull())
                 .findFirst()
-                .orElseThrow(()->new NoAvailablePositionException()).park(car);
+                .orElseThrow(NoAvailablePositionException::new).park(car);
     }
 
     public Car fetchCar(ParkingTicket parkingTicket) {
@@ -29,6 +29,6 @@ public class StandardParkingBoy {
         return parkingLots.stream()
                 .filter(parkingLot -> !parkingLot.isUnrecognizedParkingTicket(parkingTicket))
                 .findFirst()
-                .orElseThrow(()-> new UnrecognizedParkingTicketException());
+                .orElseThrow(UnrecognizedParkingTicketException::new);
     }
 }
