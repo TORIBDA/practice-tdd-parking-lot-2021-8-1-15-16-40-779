@@ -90,6 +90,7 @@ public class ParkingLot_Test {
         //then
         assertEquals("No available position.", exception.getMessage());
     }
+
     //</editor-fold>
     //<editor-fold desc="Standard Parking Boy">
     @Test
@@ -177,6 +178,7 @@ public class ParkingLot_Test {
         //then
         assertEquals("No available position.", exception.getMessage());
     }
+
     //</editor-fold>
     //<editor-fold desc="Smart Parking Boy">
     @Test
@@ -264,6 +266,7 @@ public class ParkingLot_Test {
         //then
         assertEquals("No available position.", exception.getMessage());
     }
+
     @Test
     public void should_park_cars_to_the_parking_lot_when_smart_parking_boy_park_car_given_parking_lot_has_more_empty_position() throws Exception {
         //given
