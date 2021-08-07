@@ -286,4 +286,24 @@ public class ParkingLot_Test {
         assertTrue(parkingLots.get(0).getCurrentParkedCarsCount() > parkingLots.get(1).getCurrentParkedCarsCount());
     }
     //</editor-fold>
+    //<editor-fold desc="Super Smart Parking Boy">
+    @Test
+    public void should_park_cars_to_the_parking_lot_when_super_smart_parking_boy_park_car_given_parking_lot_has_more_available_positions() throws Exception {
+        //given
+        List<ParkingLot> parkingLots = new LinkedList<>();
+        parkingLots.add(new ParkingLot(10));
+        parkingLots.add(new ParkingLot(100));
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLots);
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+        //when
+        for (int count = 0; count < 10; count++) {
+            parkingTicket.add(superSmartParkingBoy.park(car));
+        }
+        //then
+        assertEquals(1, parkingLots.get(0).getCurrentParkedCarsCount());
+        assertEquals(9, parkingLots.get(1).getCurrentParkedCarsCount());
+        assertTrue(parkingLots.get(0).getCurrentParkedCarsCount() < parkingLots.get(1).getCurrentParkedCarsCount());
+    }
+    //</editor-fold>
 }
